@@ -1,65 +1,91 @@
-mosm-py: Weather & Air Quality CLI
+# mosm-py: Weather & Air Quality CLI
+
 A lightweight Python CLI tool for fetching real-time weather and air quality data for any location. Powered by WeatherAPI and managed with uv for fast dependency management and isolated Python environments.
 
-🚀 Quick Start
+## 🚀 Quick Start
+
 Get started with mosm-py in just a few steps:
+
 1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer)
-Install uv for efficient dependency management. Follow the official installation guide if you haven't set it up yet.
+
+   Install uv for efficient dependency management. Follow the official installation guide if you haven't set it up yet.
+
 2. Clone the Repository
-git clone https://github.com/ferozeren/mosm-py.git
-cd mosm-py
+
+   ```bash
+   git clone https://github.com/ferozeren/mosm-py.git
+   cd mosm-py
+   ```
 
 3. Set Up Your API Key
-Sign up for a free API key at WeatherAPI. Add it to a .env file in the project root or configure it directly in main.py.
-Option 1: Using a .env file
-Create a .env file in the project root:
-WEATHER_API_KEY=your_api_key_here
 
-Option 2: Using main.py
-Set the user_api_key variable in main.py:
-user_api_key = "your_api_key_here"  # Leave empty to load from .env
+   Sign up for a free API key at WeatherAPI. Add it to a .env file in the project root or configure it directly in main.py.
+
+   **Option 1: Using a .env file**
+
+   Create a .env file in the project root:
+
+   ```env
+   WEATHER_API_KEY=your_api_key_here
+   ```
+
+   **Option 2: Using main.py**
+
+   Set the user_api_key variable in main.py:
+
+   ```python
+   user_api_key = "your_api_key_here" # Leave empty to load from .env
+   ```
 
 4. Run the App
-Launch the app using uv:
-uv run main.py
 
+   Launch the app using uv:
 
-📸 Screenshots
-Below are example outputs of mosm-py in action:
-Current weather for London, UK
-Air quality data for New York, NY
+   ```bash
+   uv run main.py
+   ```
 
-✨ Features
+## 📸 Screenshots
 
-Retrieve real-time weather data (temperature, humidity, wind speed, etc.).
-Access air quality information (AQI, pollutants, etc.).
-Simple and user-friendly CLI interface.
-Powered by uv for fast and reliable dependency management.
+Head to screenshots/[Location]
 
+## ✨ Features
 
-🛠️ Requirements
+- Retrieve real-time weather data (temperature, humidity, wind speed, etc.).
+- Access air quality information (AQI, pollutants, etc.).
+- Simple and user-friendly CLI interface.
+- Powered by uv for fast and reliable dependency management.
 
-Python 3.8 or higher
-uv (recommended for dependency management)
-A valid WeatherAPI key
+## 🛠️ Requirements
 
+- Python 3.8 or higher
+- uv (recommended for dependency management)
+- A valid WeatherAPI key
 
-📝 Usage
+## 📝 Usage
+
 Run the CLI with a location:
-uv run main.py 
+
+```bash
+uv run main.py
 [location]
+```
 
 Example:
-uv run main.py 
-"New York"
 
-🤝 Contributing
+```bash
+uv run main.py
+"New York"
+```
+
+## 🤝 Contributing
+
 Contributions are welcome! To contribute:
 
-Fork the repository.
-Create a new branch for your changes.
-Submit a pull request with a clear description of your updates.
+- Fork the repository.
+- Create a new branch for your changes.
+- Submit a pull request with a clear description of your updates.
 
+## 📜 License
 
-📜 License
-This project is licensed under the MIT License. See the LICENSE file for details..
+This project is licensed under the MIT License. See the LICENSE file for details.
