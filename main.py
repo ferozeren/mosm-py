@@ -1,54 +1,10 @@
 #!/usr/bin/env python3
 
-# from pydantic_core.core_schema import ExpectedSerializationTypes
 import requests
 import os
 from dotenv import load_dotenv
-import json
 from dataclasses import dataclass
-# from pydantic import BaseModel, Field
-# from typing import Optional
-
-from dacite import from_dict, Config
-
-
-
-# @dataclass
-# class Current:
-#     last_updated_epoch: int
-#     last_updated: str
-#     temp_c: float
-#     temp_f: float
-#     is_day: int
-#     condition: Condition
-#     wind_mph: float
-#     wind_kph: float
-#     wind_degree: int
-#     wind_dir: str
-#     pressure_mb: float
-#     pressure_in: float
-#     precip_mm: float
-#     precip_in: float
-#     humidity: int
-#     cloud: int
-#     feelslike_c: float
-#     feelslike_f: float
-#     windchill_c: float
-#     windchill_f: float
-#     heatindex_c: float
-#     heatindex_f: float
-#     dewpoint_c: float
-#     dewpoint_f: float
-#     vis_km: float
-#     vis_miles: float
-#     uv: float
-#     gust_mph: float
-#     gust_kph: float
-#     short_rad: float
-#     diff_rad: float
-#     dni: float
-#     gti: float
-
+from dacite import from_dict
 
 @dataclass
 class Condition:
@@ -66,7 +22,6 @@ class AirQuality:
     pm10: float
     us_epa_index: int
     gb_defra_index: int    
-
 
 @dataclass
 class Current:
@@ -105,7 +60,6 @@ class Current:
     dni: float
     gti: float
 
-
 @dataclass
 class Location:
     name: str
@@ -117,13 +71,14 @@ class Location:
     localtime_epoch: int
     localtime: str
 
-
 @dataclass
 class WeatherData:
     location: Location
     current: Current
 
 def load_api_key(user_api_key: str) -> str | None:
+    """ Load WEATHER_API_KEY. """
+
     api_length: int = 21
     if user_api_key == "":
         load_dotenv()
@@ -134,17 +89,15 @@ def load_api_key(user_api_key: str) -> str | None:
     else:
         print("Invalid API")
         exit()
-
         
 def get_query_from_user() -> str:
+    """ Get Query from the user. """
+
     input_str: str = input("Entry city name, IP address, Latitude/Longitude (decimal degree), US Zipcode, Uk Postcode, Canada Postalcode\n: ")
     if input_str == "":
         print("Please provide any of the following! \nCity name, IP address, Latitude/Longitude (decimal degree)\nUS Zipcode, Uk Postcode, Canada Postalcode: ")
         exit()
     return input_str
-
-
-
 
 wind_arrows = {
     "N": "⬆",     # U+2B06
@@ -189,6 +142,8 @@ GB_DEFRA_INDEX = {
 }
 
 def fetch_json():
+    """ Fetch json using the API."""
+
     api_key : str | None = load_api_key("")
 
     # Exit, if no user and store api is found
@@ -213,17 +168,14 @@ def fetch_json():
 
 
 def main():
+
     json_body = fetch_json()
-    # print(json_body)
-  
     try:
-          # Map JSON keys to dataclass field names
         transform_keys = {
             "us-epa-index": "us_epa_index",
             "gb-defra-index": "gb_defra_index"
         }
         raw_aq = json_body["current"]["air_quality"]
-        # Convert JSON keys to match dataclass field names
 
         normalized_data = {
             transform_keys.get(k, k): v for k, v in raw_aq.items()
@@ -238,7 +190,7 @@ def main():
     except Exception as _:
         print("Failed to fetch data, Invalid Location")
         exit()
-    # conditon_icon = "🌥️"
+
     BOLD = "\033[1m"
     ITALIC = "\x1B[3m"
     RESET = "\033[0m"
@@ -253,24 +205,12 @@ def main():
     print(f"{BOLD}{weather.current.condition.text}{RESET}\t {weather.current.temp_c}°C | {weather.current.temp_f}°F")
     print(f"{ITALIC}Feels like{RESET} {weather.current.feelslike_c}°C | {weather.current.feelslike_f}°F")
     print()
-    # print(weather.current.air_quality.us_epa_index)   # 2
     us_epa_index = weather.current.air_quality.us_epa_index;
     print(f"Humidity: {weather.current.humidity}%\t Cloud Cover: {weather.current.cloud}%")
     print(f"Dew Points: {weather.current.dewpoint_c}°C | {weather.current.dewpoint_f}°F   Wind: {weather.current.wind_kph}kph | {weather.current.wind_mph}mph {wind_direction}")
     print()
     print(f"Air Quality Index: {US_EPA_INDEX[us_epa_index]}\nPM10: {weather.current.air_quality.pm10} PM2.5: {weather.current.air_quality.pm2_5}")
     print("-" * 60)
-
     
-    
-        
-
-    
-
-    
-    
-
-    
-        
 if __name__ == "__main__":
     main()
