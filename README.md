@@ -47,7 +47,7 @@ Get started with mosm-py in just a few steps:
 
 ## 📸 Screenshots
 
-Head to screenshots/[Location]
+<img width="1419" height="477" alt="New_York" src="https://github.com/user-attachments/assets/1063f3b0-c441-4bca-9063-1efa0b6b7648" />
 
 ## ✨ Features
 
